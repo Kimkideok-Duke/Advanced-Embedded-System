@@ -2680,8 +2680,10 @@ void *fpgaThread(void *data)
 			sprintf(passwd_input, "%d%d%d%d",data_ps[0], data_ps[1], data_ps[2], data_ps[3]);
 			printf("%s\n", passwd_input);
 			otp_int = otp_num();
+			sleep(0.1);
 			sprintf(otp_bi, "%s", intToBinary(otp_int));
 			text_lcd(otp_bi, "");
+			sleep(0.1);
 
 			dip_int = dip_switch();
 			sprintf(dip_bi, "%s", intToBinary(dip_int));
