@@ -36,6 +36,9 @@
 #define LBALERT 12
 #define SENDALERT 13
 
+int otpflag = 0;
+char otptmp[10] = "0";
+
 char password[5], passwd_input[4];
 /*******************FPGA Define*******************/
 #define password_section 1
@@ -815,7 +818,7 @@ void *mainThread(void *data)
 					{
 						printf("\n%s", temp->key.userName);
 						printf("\n%s", temp->key.accountNum);
-						step = SELECTSTEP;
+						step = PASSWDSTEP;
 					}else{
 						
 					}
@@ -859,11 +862,12 @@ void *mainThread(void *data)
 					// clear the previous image (= fill entire screen)
 					if (clrcnt == 0)
 						clear_screen(0);
+
+					draw_string(880, 240, otptmp, strlen(otptmp), 6, 9, 10, 2);
+						
 					drawline(100, 400, xloc + 222, 555);
-					draw_string(880, 40, (char *)"ACCOUNT NUMBER", 14, 6, 9, 10, 2);
-					draw_string(880, 80, e.accountNum, strlen(e.accountNum), 6, 9, 10, 2);
-					draw_string(880, 140, (char *)"PASSWORD", 8, 6, 9, 10, 2);
-					draw_string(880, 180, e.passwd, strlen(e.passwd), 6, 9, 10, 2);
+					draw_string(880, 140, (char *)"ENTER YOUR PASSWORD", 19, 6, 9, 10, 2);
+					draw_string(880, 200, (char *)"ENTER OTP NUM", 13, 6, 9, 10, 2);
 					draw_string(400, 50, (char *)"B", 1, 6, 9, 10, 2);
 					draw_string(400, 100, (char *)"A", 1, 6, 9, 10, 2);
 					draw_string(400, 150, (char *)"S", 1, 6, 9, 10, 2);
@@ -1638,6 +1642,7 @@ void *mainThread(void *data)
 		//	draw();
 		if (step == SELECTSTEP)
 		{
+			otpflag = 0;
 			screensize = finfo.smem_len;
 			fbp = (char *)mmap(0,
 							   screensize,
@@ -2770,7 +2775,9 @@ void *fpgaThread(void *data)
 			otp_int = otp_num();
 			sleep(0.1);
 			sprintf(otp_bi, "%s", intToBinary(otp_int));
+			strcpy(otptmp, otp_bi);
 			text_lcd(otp_bi, "");
+			otpflag = 1;
 			sleep(0.1);
 
 			dip_int = dip_switch();
@@ -2798,6 +2805,7 @@ void *fpgaThread(void *data)
 				next = 1;
 				compare_mat = 0;
 				clrcnt = 0;
+				sleep(0.1);
 				step = SELECTSTEP;
 				section = 0;
 			} 
