@@ -962,7 +962,7 @@ void *mainThread(void *data)
 			//printf("while_bf");
 			sleep(1);
 			dec(temp->key.randNum, temp->key.passwd, password);
-			while (1)
+			if(step == PASSWDSTEP)
 			{
 				section = password_section;
 				while(!next);	
@@ -2701,20 +2701,21 @@ void *fpgaThread(void *data)
 		else if(section == match_section)
 		{
 			if(compare_mat == pass_match)
-			{/*
+			{
 				step_motor(1, 1, 5);
 				sleep(3);
-				step_motor(0, 1, 5);*/
+				step_motor(0, 1, 5);
 				next = 1;
 				compare_mat = 0;
 				clrcnt = 0;
 				step = SELECTSTEP;
 				section = 0;
-			} printf("%d\n",compare_mat);
+			} 
 			if(compare_mat == pass_dismatch)
 			{
-				//buzzer(2);
+				buzzer(2);
 				compare_mat = 0;
+				next = 1;
 			}
 			else;
 		}
