@@ -1719,12 +1719,21 @@ void *mainThread(void *data)
 					y = 0;
 					step = 0;
 				}
+				
 				if (x >= 430 && x <= 670 && y >= 90 && y <= 150)
 				{
 					clrcnt = 0;
 					x = 0;
 					y = 0;
 					step = CHECKBALANCESTEP;
+					break;
+				}
+				
+				if (x >= 150 && x <= 250 && y >= 90 && y <= 150)
+				{
+					clrcnt = 0;
+					x = 0;
+					y = 0;
 					break;
 				}
 				if (x >= 430 && x <= 870 && y >= 240 && y <= 300)
@@ -2773,7 +2782,8 @@ void *fpgaThread(void *data)
 			strcpy(otptmp, otp_bi);
 			text_lcd(otp_bi, "");
 			otpflag = 1;
-
+			for(int i = 0; i < 5; i++)
+				data_ps[i] = '0';
 			dip_int = dip_switch();
 			sprintf(dip_bi, "%s", intToBinary(dip_int));
 			if(dip_int == otp_int)	
@@ -2802,14 +2812,12 @@ void *fpgaThread(void *data)
 				sleep(0.1);
 				step = SELECTSTEP;
 				section = 0;
-				data_ps[0] = '\0';
 			} 
 			if(compare_mat == pass_dismatch)
 			{
 				buzzer(2);
 				compare_mat = 0;
 				next = 0;
-				data_ps[0] = '\0';
 			}
 			else;
 		}
