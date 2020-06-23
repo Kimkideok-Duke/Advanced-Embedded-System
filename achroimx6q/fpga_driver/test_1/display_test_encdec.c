@@ -2782,13 +2782,13 @@ void *fpgaThread(void *data)
 			{
 				text_lcd(mat, dip_bi);
 				section = 0;
-				next = 1;
+				next = 0;
 			}
 			else 
 			{
 				text_lcd(dis_mat, dip_bi);
 				section = 0;
-				next = 1;
+				next = 0;
 			}
 		}
 		else if(section == match_section)
@@ -2798,7 +2798,7 @@ void *fpgaThread(void *data)
 				step_motor(1, 1, 5);
 				sleep(3);
 				step_motor(0, 1, 5);
-				next = 1;
+				next = 0;
 				compare_mat = 0;
 				clrcnt = 0;
 				sleep(0.1);
@@ -2809,7 +2809,7 @@ void *fpgaThread(void *data)
 			{
 				buzzer(2);
 				compare_mat = 0;
-				next = 1;
+				next = 0;
 			}
 			else;
 		}
