@@ -1800,8 +1800,8 @@ void *mainThread(void *data)
 					for(int k=0; k<10; k++){
 						if(temp->key.transinfo[k]->money != 0){
 							sprintf(tmp2, "%d", temp->key.transinfo[k]->money);
-							draw_string(800, (120+(k*20)), tmp2, strlen(tmp2), 6, 9, 10, 1);
-							draw_string(400, (120+(k*20)), temp->key.transinfo[k]->transName, strlen(temp->key.transinfo[k]->transName), 6, 9, 10, 1);
+							draw_string(600, (140+(k*20)), tmp2, strlen(tmp2), 6, 9, 10, 1);
+							draw_string(400, (140+(k*20)), temp->key.transinfo[k]->transName, strlen(temp->key.transinfo[k]->transName), 6, 9, 10, 1);
 						}
 					}
 					draw_string(1650, 10, (char *)"BACK TO MAIN", 12, 6, 9, 10, 1);
@@ -2782,10 +2782,6 @@ void *fpgaThread(void *data)
 			strcpy(otptmp, otp_bi);
 			text_lcd(otp_bi, "");
 			otpflag = 1;
-			for(int i = 0; i < 4; i++)
-				data_ps[i] = '0';
-			for(int i = 0; i < 4; i++)
-				passwd_input[i] = '0';
 			dip_int = dip_switch();
 			sprintf(dip_bi, "%s", intToBinary(dip_int));
 			if(dip_int == otp_int)	
