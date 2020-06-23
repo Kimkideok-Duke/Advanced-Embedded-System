@@ -912,7 +912,7 @@ void *mainThread(void *data)
 			if(step == PASSWDSTEP)
 			{
 				section = password_section;
-				while(!next);	
+				while(!next);
 				count_stop = stop_sign;
 				section = match_section;
 					if(password[0] == passwd_input[0] &&
@@ -2782,13 +2782,13 @@ void *fpgaThread(void *data)
 			{
 				text_lcd(mat, dip_bi);
 				section = 0;
-				next = 0;
+				next = 1;
 			}
 			else 
 			{
 				text_lcd(dis_mat, dip_bi);
 				section = 0;
-				next = 0;
+				next = 1;
 			}
 		}
 		else if(section == match_section)
