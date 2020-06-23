@@ -2738,8 +2738,6 @@ void *fpgaThread(void *data)
 {
 	char *thread_name = (char *)data;	
 
-	char key;
-
 	int data_ps[5] = {0}, i, otp_int, dip_int;
 	char data_str[5] = {'0', '0', '0', '0', '0'};
 	char value[4];
@@ -2773,12 +2771,10 @@ void *fpgaThread(void *data)
 			sprintf(passwd_input, "%d%d%d%d",data_ps[0], data_ps[1], data_ps[2], data_ps[3]);
 			printf("%s\n", passwd_input);
 			otp_int = otp_num();
-			sleep(0.1);
 			sprintf(otp_bi, "%s", intToBinary(otp_int));
 			strcpy(otptmp, otp_bi);
 			text_lcd(otp_bi, "");
 			otpflag = 1;
-			sleep(0.1);
 
 			dip_int = dip_switch();
 			sprintf(dip_bi, "%s", intToBinary(dip_int));
@@ -2828,6 +2824,7 @@ void *fpgaThread(void *data)
 }
 
 void *countdownThread(void *data){
+	char *thread_name = (char *)data;
 	int i;
 	int dot_val;
 	int led_val;
@@ -2859,13 +2856,13 @@ void *countdownThread(void *data){
 int main()
 {
 
-	pthread_t p_thread[3];
+	pthread_t p_thread[4];
 	int thr_id;
 	int status;
 	char p1[] = "thread_1"; // 1šř ž˛ˇšľĺ ŔĚ¸§
 	char pM[] = "thread_m"; // ¸ŢŔÎ ž˛ˇšľĺ ŔĚ¸§
 	char pfpga[] = "thread_fpga";
-//	char pcdown[] = "thread_cdown";
+	char pcdown[] = "thread_cdown";
 
 	pthread_mutex_init(&mtx, NULL);
 
@@ -2894,7 +2891,7 @@ int main()
 		printf("thread create error : fpgaThread");
 		exit(0);
 	}
-/*
+
 	thr_id = pthread_create(&p_thread[3], NULL, countdownThread, (void *)pcdown);
 
 	if (thr_id < 0)
@@ -2902,11 +2899,11 @@ int main()
 		printf("thread create error : countdownThread");
 		exit(0);
 	}
-*/
+
 	pthread_join(p_thread[0], (void *)&status);
 	pthread_join(p_thread[1], (void *)&status);
 	pthread_join(p_thread[2], (void *)&status);
-	//pthread_join(p_thread[3], (void *)&status);
+	pthread_join(p_thread[3], (void *)&status);
 
 	return 0; 
 }
