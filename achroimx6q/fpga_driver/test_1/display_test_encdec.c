@@ -2782,8 +2782,10 @@ void *fpgaThread(void *data)
 			strcpy(otptmp, otp_bi);
 			text_lcd(otp_bi, "");
 			otpflag = 1;
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < 4; i++)
 				data_ps[i] = '0';
+			for(int i = 0; i < 4; i++)
+				passwd_input[i] = '0';
 			dip_int = dip_switch();
 			sprintf(dip_bi, "%s", intToBinary(dip_int));
 			if(dip_int == otp_int)	
