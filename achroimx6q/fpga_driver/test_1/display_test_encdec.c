@@ -862,8 +862,6 @@ void *mainThread(void *data)
 					// clear the previous image (= fill entire screen)
 					if (clrcnt == 0)
 						clear_screen(0);
-
-					draw_string(880, 240, otptmp, strlen(otptmp), 6, 9, 10, 2);
 						
 					drawline(100, 400, xloc + 222, 555);
 					draw_string(880, 140, (char *)"ENTER YOUR PASSWORD", 19, 6, 9, 10, 2);
@@ -2804,12 +2802,14 @@ void *fpgaThread(void *data)
 				sleep(0.1);
 				step = SELECTSTEP;
 				section = 0;
+				data_ps[0] = '\0';
 			} 
 			if(compare_mat == pass_dismatch)
 			{
 				buzzer(2);
 				compare_mat = 0;
 				next = 0;
+				data_ps[0] = '\0';
 			}
 			else;
 		}
