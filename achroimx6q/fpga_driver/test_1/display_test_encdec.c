@@ -921,14 +921,14 @@ void *mainThread(void *data)
 						password[3] == passwd_input[3])
 					{
 						compare_mat = pass_match;
-						//for(int i = 0; i < 4; i++)
-						//	passwd_input[i] = '0';
+						for(int i = 0; i < 4; i++)
+							passwd_input[i] = '0';
 					}
 					else 
 					{
 						compare_mat = pass_dismatch;
-						//for(int i = 0; i < 4; i++)
-						//	passwd_input[i] = '0';
+						for(int i = 0; i < 4; i++)
+							passwd_input[i] = '0';
 					}
 				//next = 1;
 			}
@@ -2856,13 +2856,13 @@ void *countdownThread(void *data){
 int main()
 {
 
-	pthread_t p_thread[4];
+	pthread_t p_thread[3];
 	int thr_id;
 	int status;
 	char p1[] = "thread_1"; // 1šř ž˛ˇšľĺ ŔĚ¸§
 	char pM[] = "thread_m"; // ¸ŢŔÎ ž˛ˇšľĺ ŔĚ¸§
 	char pfpga[] = "thread_fpga";
-	char pcdown[] = "thread_cdown";
+	//char pcdown[] = "thread_cdown";
 
 	pthread_mutex_init(&mtx, NULL);
 
@@ -2892,18 +2892,18 @@ int main()
 		exit(0);
 	}
 
-	thr_id = pthread_create(&p_thread[3], NULL, countdownThread, (void *)pcdown);
-
+	//thr_id = pthread_create(&p_thread[3], NULL, countdownThread, (void *)pcdown);
+/*
 	if (thr_id < 0)
 	{
 		printf("thread create error : countdownThread");
 		exit(0);
 	}
-
+*/
 	pthread_join(p_thread[0], (void *)&status);
 	pthread_join(p_thread[1], (void *)&status);
 	pthread_join(p_thread[2], (void *)&status);
-	pthread_join(p_thread[3], (void *)&status);
+	//pthread_join(p_thread[3], (void *)&status);
 
 	return 0; 
 }
